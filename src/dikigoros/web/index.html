@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="el">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ο Δικηγόρος σου — έρευνα ελληνικής νομοθεσίας</title>
+<meta name="description" content="Ερωτήσεις νομικών πάνω στην ελληνική νομοθεσία, με απαντήσεις τεκμηριωμένες στα ίδια τα άρθρα.">
+<link rel="stylesheet" href="/static/styles.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231f4e79'/%3E%3Ctext x='16' y='23' font-size='20' text-anchor='middle' fill='white' font-family='Georgia,serif'%3E§%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+<div class="app" id="app">
+
+  <aside class="sidebar" id="sidebar" aria-label="Συζητήσεις">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">§</span>
+      <div>
+        <div class="brand-name">Ο Δικηγόρος σου</div>
+        <div class="brand-sub">Έρευνα ελληνικής νομοθεσίας</div>
+      </div>
+    </div>
+    <button class="btn btn-primary btn-block" id="new-chat" type="button">Νέα συζήτηση</button>
+    <div class="side-label">Συζητήσεις</div>
+    <nav class="chats" id="chats"></nav>
+    <button class="side-link" id="open-coverage" type="button">Τι καλύπτει το ευρετήριο</button>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <button class="icon-btn" id="toggle-sidebar" type="button" aria-label="Συζητήσεις">☰</button>
+      <div class="topbar-title" id="chat-title">Νέα συζήτηση</div>
+      <span class="pill" id="mode-pill" hidden></span>
+    </header>
+
+    <section class="thread" id="thread" aria-live="polite"></section>
+
+    <form class="composer" id="composer" autocomplete="off">
+      <div class="options" id="options">
+        <div class="seg" role="group" aria-label="Λειτουργία">
+          <button type="button" class="seg-btn is-on" data-mode="ask">Απάντηση</button>
+          <button type="button" class="seg-btn" data-mode="search">Μόνο αναζήτηση</button>
+        </div>
+        <div class="chips" id="kind-chips" role="group" aria-label="Είδος πράξης"></div>
+        <button type="button" class="chip chip-menu" id="acts-button" aria-haspopup="dialog">Κώδικες: όλοι</button>
+        <label class="date-field" title="Διαβάζει τις διατάξεις όπως ίσχυαν εκείνη την ημέρα, όπου το αρχείο κρατά ιστορικό">
+          <span>Ισχύς στις</span>
+          <input type="date" id="as-of" min="1975-06-11">
+        </label>
+      </div>
+      <div class="input-row">
+        <textarea id="question" rows="1" placeholder="Γράψτε την ερώτησή σας…" aria-label="Ερώτηση"></textarea>
+        <button class="btn btn-primary" id="send" type="submit">Αποστολή</button>
+      </div>
+      <p class="fineprint">Οι απαντήσεις στηρίζονται μόνο στα άρθρα που ανασύρονται και δεν υποκαθιστούν τον έλεγχο του επίσημου κειμένου (ΦΕΚ).</p>
+    </form>
+  </main>
+
+  <aside class="panel" id="panel" aria-label="Διάταξη" hidden>
+    <div class="panel-head">
+      <div class="panel-title" id="panel-title"></div>
+      <button class="icon-btn" id="close-panel" type="button" aria-label="Κλείσιμο">✕</button>
+    </div>
+    <div class="panel-body" id="panel-body"></div>
+  </aside>
+</div>
+
+<div class="scrim" id="scrim" hidden></div>
+
+<dialog class="modal" id="acts-dialog">
+  <form method="dialog">
+    <h2>Περιορισμός σε κώδικες</h2>
+    <p class="muted">Χωρίς επιλογή, η αναζήτηση γίνεται σε όλο το ευρετήριο.</p>
+    <div class="acts-list" id="acts-list"></div>
+    <div class="modal-actions">
+      <button class="btn" type="button" id="acts-clear">Καθαρισμός</button>
+      <button class="btn btn-primary" value="ok">Εντάξει</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog class="modal modal-wide" id="coverage-dialog">
+  <form method="dialog">
+    <h2>Τι καλύπτει το ευρετήριο</h2>
+    <div id="coverage-body"></div>
+    <div class="modal-actions"><button class="btn btn-primary" value="ok">Κλείσιμο</button></div>
+  </form>
+</dialog>
+
+<dialog class="modal" id="login-dialog">
+  <form id="login-form">
+    <h2>Κωδικός πρόσβασης</h2>
+    <p class="muted">Η υπηρεσία είναι διαθέσιμη με κωδικό.</p>
+    <input type="password" id="access-code" autocomplete="current-password" aria-label="Κωδικός πρόσβασης" required>
+    <p class="error" id="login-error" hidden></p>
+    <div class="modal-actions"><button class="btn btn-primary" type="submit">Είσοδος</button></div>
+  </form>
+</dialog>
+
+<script src="/static/app.js" defer></script>
+</body>
+</html>
